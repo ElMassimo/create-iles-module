@@ -22,7 +22,7 @@ function toValidPackageName(projectName) {
     .toLowerCase()
     .replace(/\s+/g, '-')
     .replace(/^[._]/, '')
-    .replace(/[^a-z0-9-~]+/g, '-')
+    .replace(/(?!^@)[^a-z0-9-~/]+/g, '-')
 }
 
 function canSafelyOverwrite(dir) {
@@ -54,8 +54,8 @@ async function init() {
   // if any of the feature flags is set, we would skip the feature prompts
   const isFeatureFlagsUsed = typeof (argv.default || argv.legacy) === 'boolean'
 
-  let targetDir = argv._[0]
-  const defaultProjectName = !targetDir ? 'iles-module' : targetDir
+  let projectName = argv._[0]
+  let targetDir = projectName && projectName.replace(/\W/g, '_')
 
   const forceOverwrite = argv.force
 
@@ -75,19 +75,19 @@ async function init() {
       [
         {
           name: 'projectName',
-          type: targetDir ? null : 'text',
+          type: projectName ? null : 'text',
           message: 'Project name:',
-          initial: defaultProjectName,
-          onState: (state) => (targetDir = String(state.value).trim() || defaultProjectName)
+          initial: 'iles-module',
+          onState: (state) => {
+            projectName = String(state.value).trim() || 'iles-module'
+            targetDir = projectName.replace(/\W/g, '_')
+          },
         },
         {
           name: 'shouldOverwrite',
           type: () => (canSafelyOverwrite(targetDir) || forceOverwrite ? null : 'confirm'),
           message: () => {
-            const dirForPrompt =
-              targetDir === '.' ? 'Current directory' : `Target directory "${targetDir}"`
-
-            return `${dirForPrompt} is not empty. Remove existing files and continue?`
+            return `Target directory "${targetDir}" is not empty. Remove existing files and continue?`
           }
         },
         {
@@ -101,9 +101,9 @@ async function init() {
         },
         {
           name: 'packageName',
-          type: () => (isValidPackageName(targetDir) ? null : 'text'),
+          type: () => (isValidPackageName(projectName) ? null : 'text'),
           message: 'Package name:',
-          initial: () => toValidPackageName(targetDir),
+          initial: () => toValidPackageName(projectName),
           validate: (dir) => isValidPackageName(dir) || 'Invalid package.json name'
         },
         {
@@ -129,11 +129,10 @@ async function init() {
   // `initial` won't take effect if the prompt type is null
   // so we still have to assign the default values here
   const {
-    packageName = toValidPackageName(defaultProjectName),
+    packageName = toValidPackageName(projectName),
     shouldOverwrite,
     legacy = argv.legacy,
   } = result
-  targetDir = targetDir.replace(/\W/g, '_')
   const root = path.join(cwd, targetDir)
 
   if (shouldOverwrite) {
