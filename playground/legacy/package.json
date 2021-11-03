@@ -1,0 +1,34 @@
+{
+  "name": "legacy",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "npm run build -- --watch",
+    "build": "tsup src/index.ts",
+    "prepublishOnly": "npm run build",
+    "release": "npx bumpp --commit --tag --push && npm publish --access public"
+  },
+  "type": "module",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./src/index.cjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "keywords": [
+    "iles",
+    "iles-module",
+    "vite",
+    "vitejs"
+  ],
+  "devDependencies": {
+    "iles": "^0.5",
+    "tsup": "^5.5.0",
+    "typescript": "^4.4.4"
+  }
+}
