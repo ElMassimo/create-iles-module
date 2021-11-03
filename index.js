@@ -159,8 +159,8 @@ async function init() {
   // Render base template
   render('base')
 
-  // Render optional config
-  if (legacy) render(`code/cjs`)
+  // Render additional entrypoints
+  render(`code/${ legacy ? 'cjs' : 'esm'}`)
 
   // Instructions:
   // Supported package managers: pnpm > yarn > npm

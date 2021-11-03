@@ -11,8 +11,8 @@
   "types": "dist/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/index.js",
-      "require": "./src/index.cjs"
+      "import": "./src/index.mjs",
+      "require": "./dist/index.cjs"
     },
     "./package.json": "./package.json"
   },

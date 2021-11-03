@@ -10,7 +10,10 @@
   "type": "module",
   "types": "dist/index.d.ts",
   "exports": {
-    ".": "./dist/index.js",
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./src/index.cjs"
+    },
     "./package.json": "./package.json"
   },
   "files": [
