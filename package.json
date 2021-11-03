@@ -1,6 +1,6 @@
 {
   "name": "create-iles-module",
-  "version": "0.5.3",
+  "version": "0.5.4",
   "description": "An easy way to create an îles module",
   "type": "module",
   "bin": {
