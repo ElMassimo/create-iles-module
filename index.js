@@ -133,6 +133,7 @@ async function init() {
     shouldOverwrite,
     legacy = argv.legacy,
   } = result
+  targetDir = targetDir.replace(/\W/g, '_')
   const root = path.join(cwd, targetDir)
 
   if (shouldOverwrite) {
