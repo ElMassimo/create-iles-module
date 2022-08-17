@@ -1,6 +1,6 @@
 {
   "name": "create-iles-module",
-  "version": "0.5.4",
+  "version": "0.8.0",
   "description": "An easy way to create an îles module",
   "type": "module",
   "bin": {
@@ -36,6 +36,7 @@
   },
   "homepage": "https://github.com/ElMassimo/create-iles-module#readme",
   "devDependencies": {
+    "@types/node": "16",
     "esbuild": "^0.12.29",
     "husky": "^7.0.2",
     "kolorist": "^1.5.0",

@@ -55,7 +55,7 @@ async function init() {
   const isFeatureFlagsUsed = typeof (argv.default || argv.legacy) === 'boolean'
 
   let projectName = argv._[0]
-  let targetDir = projectName && projectName.replace(/\W/g, '_')
+  let targetDir = projectName && projectName.replace(/[^-_\w]/g, '-')
 
   const forceOverwrite = argv.force
 
