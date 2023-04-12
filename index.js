@@ -80,7 +80,7 @@ async function init() {
           initial: 'iles-module',
           onState: (state) => {
             projectName = String(state.value).trim() || 'iles-module'
-            targetDir = projectName.replace(/\W/g, '_')
+            targetDir = projectName.replace(/[^-_\w]/g, '_')
           },
         },
         {
