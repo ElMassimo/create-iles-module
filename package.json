@@ -1,6 +1,6 @@
 {
   "name": "create-iles-module",
-  "version": "0.9.0",
+  "version": "0.9.5",
   "description": "An easy way to create an îles module",
   "type": "module",
   "bin": {
@@ -20,7 +20,7 @@
     "snapshot": "node snapshot.js",
     "pretest": "run-s build snapshot",
     "prepublishOnly": "run-s build snapshot",
-    "release": "npx bumpp --commit --tag --push && pnpm publish --tag next --tag lastest"
+    "release": "npx bumpp --commit --tag --push && pnpm publish --tag next"
   },
   "repository": {
     "type": "git",
